@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath("../SklearncomPYre"))
 from SklearncomPYre import comparison_viz
 
 # Test Dataframe
-df = pd.DataFrame({'index': [1, 2, 3, 4],
+df = pd.DataFrame({'index': [0, 1, 2, 3],
                    'models': ["Random Forest","MLPClassifier", "Logistic Regression","GaussianNB"],
                    'Train Accuracy': [90.1, 82.2, 73.3, 74.4],
                    'Test Accuracy': [85.4, 78.3, 69.2, 70.1],
@@ -37,7 +37,7 @@ def test_input_choice_value():
         comparison_viz(comparison=df, choice = 'model')
     except(ValueError):
         assert True
-    else:
+    else: #pragma: no cover
         assert False
 
 def test_input_choice_type():
@@ -48,7 +48,7 @@ def test_input_choice_type():
         comparison_viz(comparison=df, choice=3)
     except(TypeError):
         assert True
-    else:
+    else: #pragma: no cover
         assert False
 
 
@@ -60,7 +60,7 @@ def test_input_comparison_value():
         comparison_viz(comparison=df[['models','Variance']], choice='time')
     except(ValueError):
         assert True
-    else:
+    else: #pragma: no cover
         assert False
 
 def test_input_comparison_type():
@@ -71,7 +71,7 @@ def test_input_comparison_type():
         comparison_viz(comparison=3, choice='time')
     except(TypeError):
         assert True
-    else:
+    else: #pragma: no cover
         assert False
 
 def test_output_comparison_viz(tmpdir):
@@ -89,3 +89,38 @@ def test_input_df_dim():
     """
     with pytest.raises(ValueError):
         comparison_viz(df, 'time')
+
+def test_input_df_without_rows():
+    """
+    Comparison dataframe has no rows
+    """
+    try:
+        comparison_viz(comparison=df2.drop([0,1,2,3]), choice='time')
+    except(ValueError):
+        assert True
+    else: #pragma: no cover
+        assert False
+
+def test_input_df_model_column_not_string():
+    """
+    Comparison dataframe model column not string
+    """
+    try:
+        df2['0_Models'] = 1
+        comparison_viz(comparison=df2, choice='time')
+    except(TypeError):
+        assert True
+    else: #pragma: no cover
+        assert False
+
+def test_input_df_other_columns_not_float():
+    """
+    Comparison dataframe other columns not float
+    """
+    try:
+        df2['Variance'] = "a"
+        comparison_viz(comparison=df2, choice='time')
+    except(TypeError):
+        assert True
+    else: #pragma: no cover
+        assert False
