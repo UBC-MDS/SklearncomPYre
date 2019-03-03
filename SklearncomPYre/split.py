@@ -51,14 +51,6 @@ def split(X, y, ptrain, pvalid, ptest):
         same length and they should be either arrays or dataframes.\
         See documentation and try again ¯\_(ツ)_/¯ ")
 
-    # #checking that given y is an array or dataframe
-    # elif type(y) != type(np.array(y)) and type(y) != type(pd.DataFrame(y)):
-    #     raise TypeError("y isn't the right type. See documentation and try again ¯\_(ツ)_/¯ ")
-
-    # #checking that given X any y are the same length
-    # elif X.shape[0] != len(y):
-    #     raise TypeError("X & y lengths don't match. Try again ¯\_(ツ)_/¯ ")
-
     else:
         X_train_validation, X_test, y_train_validation, y_test = train_test_split(X, y, test_size= ptest)
 
