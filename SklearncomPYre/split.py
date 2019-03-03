@@ -40,17 +40,24 @@ def split(X, y, ptrain, pvalid, ptest):
     # Splitting up datasets into 40% training, 20% vaildation, and 40% tests sets.
     X_train, y_train, X_val, y_val, X_train_val, y_train_val, X_test, y_test = split(X,y,0.4,0.2,0.4)
 
-    See README for examples-- https://github.com/UBC-MDS/SklearncomPYre/blob/Jes/README.md
+    See README for examples-- https://github.com/UBC-MDS/SklearncomPYre/blob/master/README.md
 
     """
-    if  type(X) != type(np.array(X)) and type(X) != type(pd.DataFrame(X)):
-        raise TypeError("X isn't the right type. See documentation and try again ¯\_(ツ)_/¯ ")
+    #checking that given X is an array or dataframe
+    if  (type(X) != type(np.array(X)) and type(X) != type(pd.DataFrame(X))) or \
+        (type(y) != type(np.array(y)) and type(y) != type(pd.DataFrame(y))) or \
+        X.shape[0] != len(y):
+        raise TypeError("X or y are not the right type. X and Y should be the \
+        same length and they should be either arrays or dataframes.\
+        See documentation and try again ¯\_(ツ)_/¯ ")
 
-    if  type(y) != type(np.array(y)) and type(y) != type(pd.DataFrame(y)):
-        raise TypeError("y isn't the right type. See documentation and try again ¯\_(ツ)_/¯ ")
+    # #checking that given y is an array or dataframe
+    # elif type(y) != type(np.array(y)) and type(y) != type(pd.DataFrame(y)):
+    #     raise TypeError("y isn't the right type. See documentation and try again ¯\_(ツ)_/¯ ")
 
-    if X.shape[0] != len(y):
-        raise TypeError("X & y lengths don't match. Try again ¯\_(ツ)_/¯ ")
+    # #checking that given X any y are the same length
+    # elif X.shape[0] != len(y):
+    #     raise TypeError("X & y lengths don't match. Try again ¯\_(ツ)_/¯ ")
 
     else:
         X_train_validation, X_test, y_train_validation, y_test = train_test_split(X, y, test_size= ptest)
